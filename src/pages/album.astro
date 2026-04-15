@@ -28,7 +28,7 @@ const totalPhotos = albumItems.reduce((sum, item) => sum + item.photos.length, 0
 		<div class="album-grid">
 			{
 				albumItems.map((item) => (
-					<article class="album-card">
+					<a class="album-card album-link-card" href={`${baseUrl}album/${item.slug}/`}>
 						<div class:list={['album-preview-grid', `count-${Math.min(item.photos.length, 4)}`]}>
 							{item.photos.slice(0, 4).map((photo) => (
 								<img
@@ -47,8 +47,9 @@ const totalPhotos = albumItems.reduce((sum, item) => sum + item.photos.length, 0
 							<h3>{item.title}</h3>
 							<p class="section-text">{item.description}</p>
 							<p class="caption-line">{item.note}</p>
+							<p class="text-link">查看这组照片</p>
 						</div>
-					</article>
+					</a>
 				))
 			}
 		</div>

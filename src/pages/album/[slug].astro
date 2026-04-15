@@ -1,0 +1,54 @@
+---
+import { siteConfig } from '../../config/site';
+import { albumItems } from '../../data/album';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatDisplayDate } from '../../utils/date';
+
+export async function getStaticPaths() {
+	return albumItems.map((item) => ({
+		params: { slug: item.slug },
+		props: { item },
+	}));
+}
+
+const { item } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${baseUrl}${path.replace(/^\/+/, '')}`;
+---
+
+<BaseLayout title={`${item.title} | ${siteConfig.title}`} description={item.description}>
+	<section class="section page-banner">
+		<div>
+			<p class="eyebrow">Album</p>
+			<h1 class="section-title">{item.title}</h1>
+			<p class="section-text">{item.description}</p>
+		</div>
+		<div class="surface-card banner-card">
+			<p class="eyebrow">{formatDisplayDate(item.date)}</p>
+			<h2 class="panel-title">{item.photos.length} 张照片</h2>
+			<p class="panel-text">{item.note}</p>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="album-detail-grid">
+			{
+				item.photos.map((photo, index) => (
+					<figure class="album-detail-card">
+						<img
+							class="album-detail-image"
+							src={withBase(photo.image)}
+							alt={photo.alt}
+							loading="lazy"
+						/>
+						<figcaption class="caption-line">第 {index + 1} 张</figcaption>
+					</figure>
+				))
+			}
+		</div>
+	</section>
+
+	<div class="article-actions">
+		<a class="button secondary" href={`${baseUrl}album/`}>返回相册</a>
+	</div>
+</BaseLayout>

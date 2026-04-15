@@ -558,6 +558,18 @@ h4 {
 	background: rgba(255, 251, 248, 0.9);
 }
 
+.album-link-card {
+	display: block;
+	transition:
+		transform 180ms ease,
+		box-shadow 180ms ease;
+}
+
+.album-link-card:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 24px 48px rgba(120, 90, 78, 0.12);
+}
+
 .album-preview-grid {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -575,10 +587,14 @@ h4 {
 
 .album-preview-grid.count-1 {
 	grid-template-columns: 1fr;
+	padding: 0;
+	gap: 0;
+	background: transparent;
 }
 
 .album-preview-grid.count-1 .album-image {
 	aspect-ratio: 16 / 10;
+	border-radius: 0;
 }
 
 .album-preview-grid.count-3 .album-image:first-child {
@@ -604,6 +620,38 @@ h4 {
 	color: var(--text-soft);
 	font-size: 0.9rem;
 	white-space: nowrap;
+}
+
+.album-detail-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 1rem;
+}
+
+.album-detail-card {
+	margin: 0;
+	padding: 0.8rem;
+	border: 1px solid var(--line);
+	border-radius: var(--radius-lg);
+	background:
+		linear-gradient(180deg, rgba(255, 253, 251, 0.96), rgba(247, 239, 233, 0.88)),
+		var(--surface);
+	box-shadow: var(--shadow);
+}
+
+.album-detail-image {
+	display: block;
+	width: 100%;
+	height: auto;
+	object-fit: contain;
+	border-radius: 16px;
+	background: rgba(255, 250, 247, 0.96);
+}
+
+.album-detail-card .caption-line {
+	display: block;
+	margin-top: 0.9rem;
+	padding-left: 0.15rem;
 }
 
 .entry-shell {
@@ -726,6 +774,10 @@ code {
 		grid-template-columns: 1fr;
 	}
 
+	.album-detail-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
 	.header-inner,
 	.footer-inner {
 		flex-direction: column;
@@ -782,5 +834,9 @@ code {
 	.hero-pills,
 	.button-row {
 		gap: 0.55rem;
+	}
+
+	.album-detail-grid {
+		grid-template-columns: 1fr;
 	}
 }
