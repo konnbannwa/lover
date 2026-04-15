@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import DiaryCard from '../../components/DiaryCard.astro';
+import { siteConfig } from '../../config/site';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+const diaryEntries = (await getCollection('diary')).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<BaseLayout title={`时间线 | ${siteConfig.title}`} description="按时间查看恋爱日记与纪念片段。">
+	<section class="section">
+		<header class="section-header">
+			<p class="eyebrow">Timeline</p>
+			<h1 class="section-title">时间线</h1>
+			<p class="section-text">
+				这里按时间收纳每一篇日记。后续只要继续往 `src/content/diary/` 中新增 Markdown 文件，就会自动出现在列表里。
+			</p>
+		</header>
+		<div class="timeline-list">
+			{
+				diaryEntries.map((entry) => (
+					<DiaryCard
+						title={entry.data.title}
+						date={entry.data.date}
+						summary={entry.data.summary}
+						tags={entry.data.tags}
+						href={`${baseUrl}timeline/${entry.id}/`}
+					/>
+				))
+			}
+		</div>
+	</section>
+</BaseLayout>

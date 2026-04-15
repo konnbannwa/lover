@@ -1,0 +1,29 @@
+---
+import { formatDisplayDate } from '../utils/date';
+
+interface Props {
+	title: string;
+	date: Date;
+	summary: string;
+	href: string;
+	tags?: string[];
+}
+
+const { title, date, summary, href, tags = [] } = Astro.props;
+---
+
+<article class="surface-card diary-card">
+	<div class="diary-meta">
+		<span>{formatDisplayDate(date)}</span>
+		{
+			tags.length > 0 && (
+				<div class="tag-row">
+					{tags.map((tag) => <span class="chip">{tag}</span>)}
+				</div>
+			)
+		}
+	</div>
+	<h3 class="diary-title">{title}</h3>
+	<p class="diary-summary">{summary}</p>
+	<a class="text-link" href={href}>阅读全文</a>
+</article>

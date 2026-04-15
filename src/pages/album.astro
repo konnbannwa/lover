@@ -1,0 +1,36 @@
+---
+import { albumItems } from '../data/album';
+import { siteConfig } from '../config/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${baseUrl}${path.replace(/^\/+/, '')}`;
+---
+
+<BaseLayout title={`相册 | ${siteConfig.title}`} description="用相册保存两个人的照片和场景。">
+	<section class="section">
+		<header class="section-header">
+			<p class="eyebrow">Album</p>
+			<h1 class="section-title">相册</h1>
+			<p class="section-text">
+				这里先用静态占位图搭起结构，后续只需要替换图片文件和说明文字，就能逐渐变成你们自己的相册。
+			</p>
+		</header>
+
+		<div class="album-grid">
+			{
+				albumItems.map((item) => (
+					<article class="album-card">
+						<img class="album-image" src={withBase(item.image)} alt={item.alt} loading="lazy" />
+						<div class="album-content">
+							<p class="eyebrow">{item.date}</p>
+							<h3>{item.title}</h3>
+							<p class="section-text">{item.description}</p>
+							<p class="caption-line">{item.note}</p>
+						</div>
+					</article>
+				))
+			}
+		</div>
+	</section>
+</BaseLayout>

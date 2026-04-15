@@ -1,11 +1,74 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import DayCounter from '../components/DayCounter.astro';
+import DiaryCard from '../components/DiaryCard.astro';
+import { homeLinks, siteConfig } from '../config/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const baseUrl = import.meta.env.BASE_URL;
+const diaryEntries = (await getCollection('diary'))
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+	.slice(0, 3);
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title={siteConfig.title} description={siteConfig.description}>
+	<section class="section hero">
+		<div class="hero-copy">
+			<p class="eyebrow">Love Journal</p>
+			<h1 class="hero-title">{siteConfig.title}</h1>
+			<p class="hero-subtitle">{siteConfig.subtitle}</p>
+			<p class="section-text">{siteConfig.welcomeText}</p>
+			<div class="button-row">
+				<a class="button" href={`${baseUrl}timeline/`}>去看时间线</a>
+				<a class="button secondary" href={`${baseUrl}album/`}>翻看相册</a>
+			</div>
+		</div>
+		<div class="hero-panel">
+			<DayCounter startDate={siteConfig.startDate} />
+		</div>
+	</section>
+
+	<section class="section">
+		<header class="section-header">
+			<p class="eyebrow">{siteConfig.welcomeTitle}</p>
+			<h2 class="section-title">把喜欢与日常，都慢慢写下来</h2>
+			<p class="section-text">
+				这个首页先保留了最核心的入口：看日记、翻相册、读站点说明。结构尽量克制，后续可以继续加纪念日、城市清单或旅行记录。
+			</p>
+		</header>
+		<div class="quick-grid">
+			{
+				homeLinks.map((item) => (
+					<a class="surface-card quick-card" href={`${baseUrl}${item.path}`}>
+						<div>
+							<h3>{item.title}</h3>
+							<p class="section-text">{item.description}</p>
+						</div>
+						<p class="card-footnote">进入 {item.title}</p>
+					</a>
+				))
+			}
+		</div>
+	</section>
+
+	<section class="section">
+		<header class="section-header">
+			<p class="eyebrow">Recent Entries</p>
+			<h2 class="section-title">最近写下的几页</h2>
+			<p class="section-text">首页会自动抓取最新三篇示例日记，方便之后一直延续下去。</p>
+		</header>
+		<div class="timeline-list">
+			{
+				diaryEntries.map((entry) => (
+					<DiaryCard
+						title={entry.data.title}
+						date={entry.data.date}
+						summary={entry.data.summary}
+						tags={entry.data.tags}
+						href={`${baseUrl}timeline/${entry.id}/`}
+					/>
+				))
+			}
+		</div>
+	</section>
+</BaseLayout>

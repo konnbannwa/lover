@@ -1,0 +1,48 @@
+---
+import { getCollection, render } from 'astro:content';
+import { siteConfig } from '../../config/site';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatDisplayDate } from '../../utils/date';
+
+export async function getStaticPaths() {
+	const diaryEntries = await getCollection('diary');
+
+	return diaryEntries.map((entry) => ({
+		params: { slug: entry.id },
+		props: { entry },
+	}));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title={`${entry.data.title} | ${siteConfig.title}`} description={entry.data.summary}>
+	<article class="entry-shell">
+		<header class="entry-header">
+			<p class="eyebrow">Diary Entry</p>
+			<h1 class="entry-title">{entry.data.title}</h1>
+			<p class="entry-summary">{entry.data.summary}</p>
+			<div class="diary-meta" style="margin-top: 1rem;">
+				<span>{formatDisplayDate(entry.data.date)}</span>
+				{
+					entry.data.tags && entry.data.tags.length > 0 && (
+						<div class="tag-row">
+							{entry.data.tags.map((tag: string) => <span class="chip">{tag}</span>)}
+						</div>
+					)
+				}
+			</div>
+		</header>
+
+		<div class="entry-content">
+			<Content />
+		</div>
+
+		<div class="article-actions">
+			<a class="button secondary" href={`${baseUrl}timeline/`}>返回时间线</a>
+			<a class="button secondary" href={baseUrl}>回到首页</a>
+		</div>
+	</article>
+</BaseLayout>

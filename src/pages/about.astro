@@ -1,0 +1,35 @@
+---
+import { siteConfig } from '../config/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title={`关于 | ${siteConfig.title}`} description="关于这个恋爱日记小站的说明。">
+	<section class="section split-grid">
+		<div class="surface-card">
+			<header class="section-header">
+				<p class="eyebrow">About</p>
+				<h1 class="section-title">关于这个小站</h1>
+			</header>
+			<p class="section-text">{siteConfig.aboutText}</p>
+			<p class="section-text" style="margin-top: 1rem;">
+				它记录两个人的日常与纪念时刻，也允许一些并不宏大的片段被认真保存下来，比如某次散步、某顿饭、某一句当时很想记住的话。
+			</p>
+		</div>
+
+		<div class="surface-card soft-note">
+			<header class="section-header">
+				<p class="eyebrow">How To Continue</p>
+				<h2 class="section-title">后续怎么继续维护</h2>
+			</header>
+			<p class="section-text">
+				这个站点刻意保持轻量，不依赖复杂主题或重型 UI 库。你后面可以很直接地继续往时间线里加 Markdown、往相册里换图片。
+			</p>
+			<div class="button-row">
+				<a class="button secondary" href={`${baseUrl}timeline/`}>去看日记结构</a>
+				<a class="button secondary" href={`${baseUrl}album/`}>去看相册结构</a>
+			</div>
+		</div>
+	</section>
+</BaseLayout>

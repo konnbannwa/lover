@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" fill="none">
+  <rect width="1200" height="900" rx="48" fill="#F8F2EE"/>
+  <rect x="72" y="72" width="1056" height="756" rx="40" fill="#FFF9F6"/>
+  <rect x="180" y="190" width="840" height="420" rx="26" fill="url(#paint0_linear)"/>
+  <rect x="240" y="664" width="300" height="34" rx="17" fill="#E9D1C9"/>
+  <rect x="240" y="718" width="482" height="24" rx="12" fill="#F0DDD6"/>
+  <rect x="760" y="662" width="164" height="76" rx="38" fill="#D7A59E"/>
+  <text x="600" y="464" fill="#89685D" font-family="Noto Sans SC, PingFang SC, sans-serif" font-size="48" text-anchor="middle">留给以后的一顿晚餐或一张小合照</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="180" y1="190" x2="1020" y2="610" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5E3DA"/>
+      <stop offset="1" stop-color="#F3EEE8"/>
+    </linearGradient>
+  </defs>
+</svg>

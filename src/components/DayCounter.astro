@@ -1,0 +1,17 @@
+---
+import { calculateDaysTogether, formatDisplayDate } from '../utils/date';
+
+interface Props {
+	startDate: string;
+}
+
+const { startDate } = Astro.props;
+const daysTogether = calculateDaysTogether(startDate);
+---
+
+<div class="counter-card">
+	<p class="eyebrow">从 {formatDisplayDate(startDate)} 开始</p>
+	<p class="counter-number">{daysTogether}</p>
+	<p class="counter-label">我们已经一起走过的日子</p>
+	<p class="counter-tip">如需修改起始日期，请编辑 `src/config/site.ts`。</p>
+</div>
