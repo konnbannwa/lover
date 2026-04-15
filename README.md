@@ -1,8 +1,8 @@
-# love
+# lover
 
 一个基于 Astro 的 GitHub Pages 静态站点，用来记录两个人的日常、纪念日、照片和小文章。
 
-这个项目已经按 GitHub Pages 项目站点配置完成，仓库名固定为 `love`，构建后的资源路径会自动挂在 `/love/` 下。
+这个项目已经按 GitHub Pages 项目站点配置完成，仓库名固定为 `lover`，构建后的资源路径会自动挂在 `/lover/` 下。
 
 ## 本地开发
 
@@ -16,7 +16,7 @@ npm run dev
 开发服务器默认地址：
 
 ```text
-http://localhost:4321/love/
+http://localhost:4321/lover/
 ```
 
 ## 常用命令
@@ -105,7 +105,7 @@ image: '/images/album/our-trip.jpg'
 
 首次使用时请确认仓库设置：
 
-1. 仓库名是 `love`
+1. 仓库名是 `lover`
 2. 默认分支是 `main`
 3. GitHub Pages 的 Source 选择 `GitHub Actions`
 
@@ -114,7 +114,7 @@ image: '/images/album/our-trip.jpg'
 本项目已经在 `astro.config.mjs` 中固定配置：
 
 ```js
-base: '/love/'
+base: '/lover/'
 ```
 
-如果你将来修改仓库名，必须同步修改这里的 `base`，否则部署后的样式、图片和跳转路径会失效。
+如果将来修改仓库名，必须同步修改这里的 `base`，否则部署后的样式、图片和跳转路径会失效。

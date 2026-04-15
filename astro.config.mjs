@@ -2,7 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-	base: '/love/',
+	base: '/lover/',
 	output: 'static',
 	trailingSlash: 'always',
 });
