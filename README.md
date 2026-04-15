@@ -68,11 +68,9 @@ src/content/diary/2026-04-15-new-memory.md
 ```md
 ---
 title: 新的一天
+author: 我
 date: 2026-04-15
 summary: 用一句简短的话概括这篇日记。
-tags:
-  - 日常
-  - 纪念
 ---
 
 这里写正文。

@@ -1,15 +1,16 @@
 :root {
-	--bg: #fbf6f1;
-	--bg-soft: #fffaf7;
-	--surface: rgba(255, 250, 247, 0.82);
+	--bg: #f8f2ed;
+	--bg-soft: #fffaf6;
+	--surface: rgba(255, 251, 248, 0.82);
 	--surface-strong: rgba(255, 253, 251, 0.94);
-	--line: rgba(141, 108, 92, 0.18);
-	--line-strong: rgba(141, 108, 92, 0.28);
-	--text: #493a34;
-	--text-soft: #77665d;
-	--accent: #cf9a97;
-	--accent-deep: #9b6f63;
-	--shadow: 0 22px 44px rgba(112, 87, 76, 0.08);
+	--line: rgba(143, 111, 98, 0.16);
+	--line-strong: rgba(143, 111, 98, 0.28);
+	--text: #4d3d37;
+	--text-soft: #796760;
+	--accent: #d2a09f;
+	--accent-deep: #a5776f;
+	--accent-soft: rgba(210, 160, 159, 0.14);
+	--shadow: 0 24px 54px rgba(120, 90, 78, 0.08);
 	--radius-xl: 32px;
 	--radius-lg: 24px;
 	--radius-md: 18px;
@@ -24,9 +25,9 @@
 
 html {
 	background:
-		radial-gradient(circle at top left, rgba(234, 204, 200, 0.45), transparent 28%),
-		radial-gradient(circle at top right, rgba(222, 213, 201, 0.5), transparent 26%),
-		linear-gradient(180deg, #fffdfb 0%, var(--bg) 38%, #f8f2ed 100%);
+		radial-gradient(circle at top left, rgba(232, 201, 198, 0.46), transparent 26%),
+		radial-gradient(circle at top right, rgba(224, 214, 202, 0.56), transparent 28%),
+		linear-gradient(180deg, #fffdfb 0%, #fbf6f1 32%, var(--bg) 100%);
 	scroll-behavior: smooth;
 }
 
@@ -34,6 +35,7 @@ body {
 	margin: 0;
 	color: var(--text);
 	font-family: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+	font-size: 16px;
 	line-height: 1.7;
 	min-height: 100vh;
 }
@@ -49,7 +51,8 @@ img {
 }
 
 p,
-ul {
+ul,
+ol {
 	margin: 0;
 }
 
@@ -67,6 +70,19 @@ h4 {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
+	position: relative;
+	isolation: isolate;
+}
+
+.page-shell::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	background:
+		radial-gradient(circle at 14% 10%, rgba(243, 216, 213, 0.42), transparent 18%),
+		radial-gradient(circle at 84% 12%, rgba(236, 224, 214, 0.45), transparent 22%);
+	pointer-events: none;
 }
 
 .container {
@@ -79,7 +95,7 @@ h4 {
 	top: 0;
 	z-index: 10;
 	backdrop-filter: blur(14px);
-	background: rgba(251, 246, 241, 0.74);
+	background: rgba(251, 246, 241, 0.72);
 	border-bottom: 1px solid rgba(141, 108, 92, 0.12);
 }
 
@@ -143,7 +159,8 @@ h4 {
 	transition:
 		color 180ms ease,
 		background-color 180ms ease,
-		transform 180ms ease;
+		transform 180ms ease,
+		box-shadow 180ms ease;
 }
 
 .nav-link:hover,
@@ -151,29 +168,32 @@ h4 {
 	color: var(--text);
 	background: rgba(255, 250, 247, 0.92);
 	transform: translateY(-1px);
+	box-shadow: 0 10px 18px rgba(150, 114, 100, 0.08);
 }
 
 .page-main {
 	flex: 1;
-	padding: 2.4rem 0 4rem;
+	padding: 2.8rem 0 4.5rem;
 }
 
 .site-footer {
+	margin-top: auto;
 	border-top: 1px solid rgba(141, 108, 92, 0.12);
+	background: rgba(255, 250, 247, 0.52);
 	color: var(--text-soft);
 	font-size: 0.94rem;
 }
 
 .section {
-	margin-bottom: 2rem;
+	margin-bottom: 2.6rem;
 }
 
 .hero {
 	display: grid;
-	grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.9fr);
-	gap: 1.5rem;
+	grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.88fr);
+	gap: 1.25rem;
 	align-items: stretch;
-	padding-top: 1rem;
+	padding-top: 0.6rem;
 }
 
 .hero-copy,
@@ -193,9 +213,45 @@ h4 {
 }
 
 .hero-copy {
+	position: relative;
+	overflow: hidden;
+	min-height: 34rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	background:
-		linear-gradient(145deg, rgba(255, 250, 247, 0.92), rgba(247, 238, 231, 0.9)),
+		linear-gradient(145deg, rgba(255, 251, 248, 0.94), rgba(246, 236, 230, 0.9)),
 		var(--surface-strong);
+}
+
+.hero-copy::before,
+.hero-copy::after {
+	content: '';
+	position: absolute;
+	border-radius: 999px;
+	filter: blur(14px);
+	opacity: 0.88;
+}
+
+.hero-copy::before {
+	width: 11rem;
+	height: 11rem;
+	top: -2.5rem;
+	right: -2.5rem;
+	background: rgba(242, 213, 210, 0.58);
+}
+
+.hero-copy::after {
+	width: 8rem;
+	height: 8rem;
+	bottom: 2rem;
+	right: 10%;
+	background: rgba(234, 221, 209, 0.42);
+}
+
+.hero-aside {
+	display: grid;
+	gap: 1rem;
 }
 
 .eyebrow {
@@ -203,6 +259,24 @@ h4 {
 	font-size: 0.84rem;
 	letter-spacing: 0.12em;
 	text-transform: uppercase;
+}
+
+.hero-pills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+	margin-bottom: 1rem;
+}
+
+.soft-pill {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.4rem 0.82rem;
+	border-radius: 999px;
+	background: rgba(255, 250, 247, 0.84);
+	border: 1px solid rgba(143, 111, 98, 0.14);
+	color: var(--accent-deep);
+	font-size: 0.88rem;
 }
 
 .hero-title,
@@ -214,16 +288,30 @@ h4 {
 
 .hero-subtitle {
 	margin-top: 1rem;
-	font-size: clamp(1.05rem, 1.5vw, 1.28rem);
+	font-size: clamp(1.08rem, 1.5vw, 1.34rem);
 	color: var(--text-soft);
-	max-width: 32rem;
+	max-width: 34rem;
 }
 
 .section-text {
 	margin-top: 1rem;
 	color: var(--text-soft);
 	font-size: 1rem;
+	line-height: 1.85;
 	max-width: 40rem;
+}
+
+.hero-quote {
+	position: relative;
+	max-width: 28rem;
+	margin-top: 1.6rem;
+	padding: 1rem 1.15rem 1rem 1.2rem;
+	border-left: 3px solid rgba(210, 160, 159, 0.46);
+	border-radius: 0 18px 18px 0;
+	background: rgba(255, 249, 245, 0.72);
+	color: var(--text);
+	font-family: 'Iowan Old Style', 'Baskerville', 'Noto Serif SC', serif;
+	font-size: 1.02rem;
 }
 
 .button-row {
@@ -237,24 +325,26 @@ h4 {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	padding: 0.88rem 1.2rem;
+	padding: 0.92rem 1.24rem;
 	border-radius: 999px;
-	border: 1px solid transparent;
-	background: linear-gradient(135deg, #d9a7a4, #c98f8c);
+	border: 1px solid rgba(201, 143, 140, 0.18);
+	background: linear-gradient(135deg, #d7a39e, #c88e87);
 	color: #fffdfb;
 	font-weight: 600;
+	letter-spacing: 0.01em;
 	transition:
 		transform 180ms ease,
-		box-shadow 180ms ease;
+		box-shadow 180ms ease,
+		background-color 180ms ease;
 }
 
 .button:hover {
 	transform: translateY(-1px);
-	box-shadow: 0 12px 24px rgba(165, 110, 100, 0.16);
+	box-shadow: 0 14px 28px rgba(165, 110, 100, 0.16);
 }
 
 .button.secondary {
-	background: rgba(255, 250, 247, 0.72);
+	background: rgba(255, 250, 247, 0.74);
 	border-color: var(--line);
 	color: var(--text);
 }
@@ -263,7 +353,7 @@ h4 {
 	display: flex;
 	flex-direction: column;
 	gap: 0.45rem;
-	margin-bottom: 1rem;
+	margin-bottom: 1.15rem;
 }
 
 .section-title {
@@ -273,7 +363,9 @@ h4 {
 .quick-grid,
 .timeline-list,
 .album-grid,
-.split-grid {
+.split-grid,
+.anniversary-grid,
+.page-banner {
 	display: grid;
 	gap: 1rem;
 }
@@ -287,11 +379,20 @@ h4 {
 	align-items: start;
 }
 
+.anniversary-grid {
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.page-banner {
+	grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.8fr);
+	align-items: stretch;
+}
+
 .surface-card,
 .diary-card,
 .album-card,
 .entry-shell {
-	padding: 1.35rem;
+	padding: 1.4rem;
 }
 
 .quick-card {
@@ -301,10 +402,27 @@ h4 {
 	min-height: 12rem;
 }
 
-.quick-card h3,
+.panel-card,
+.banner-card,
+.anniversary-card {
+	background:
+		linear-gradient(180deg, rgba(255, 253, 251, 0.95), rgba(247, 239, 233, 0.84)),
+		var(--surface);
+}
+
+.panel-title,
+.card-title,
 .diary-title,
 .album-card h3 {
-	font-size: 1.35rem;
+	font-size: 1.4rem;
+	line-height: 1.28;
+}
+
+.quick-card h3,
+.diary-title,
+.album-card h3,
+.card-title,
+.panel-title {
 	margin-bottom: 0.7rem;
 }
 
@@ -312,9 +430,16 @@ h4 {
 .diary-meta,
 .caption-line,
 .counter-label,
-.counter-tip {
+.counter-tip,
+.panel-date {
 	color: var(--text-soft);
 	font-size: 0.94rem;
+}
+
+.card-text,
+.panel-text {
+	color: var(--text-soft);
+	line-height: 1.8;
 }
 
 .counter-card {
@@ -342,20 +467,44 @@ h4 {
 	border-top: 1px dashed var(--line-strong);
 }
 
+.anniversary-card {
+	min-height: 13.5rem;
+}
+
+.anniversary-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
+.anniversary-date {
+	color: var(--text-soft);
+	font-size: 0.92rem;
+	white-space: nowrap;
+}
+
 .soft-note {
 	background:
 		linear-gradient(180deg, rgba(255, 253, 251, 0.95), rgba(244, 236, 228, 0.84)),
 		var(--surface);
 }
 
-.note-list {
+.note-list,
+.info-list {
 	padding-left: 1.15rem;
 	margin-top: 0.9rem;
 	color: var(--text-soft);
+	line-height: 1.85;
 }
 
 .timeline-list {
 	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.recent-grid {
+	grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .diary-card {
@@ -363,6 +512,9 @@ h4 {
 	flex-direction: column;
 	gap: 0.9rem;
 	min-height: 15rem;
+	background:
+		linear-gradient(180deg, rgba(255, 253, 251, 0.96), rgba(247, 239, 233, 0.88)),
+		var(--surface);
 }
 
 .diary-meta {
@@ -383,14 +535,19 @@ h4 {
 	align-items: center;
 	padding: 0.3rem 0.72rem;
 	border-radius: 999px;
-	background: rgba(217, 167, 164, 0.14);
+	background: var(--accent-soft);
 	color: var(--accent-deep);
 	font-size: 0.8rem;
+}
+
+.author-chip {
+	background: rgba(165, 119, 111, 0.1);
 }
 
 .diary-summary {
 	color: var(--text-soft);
 	flex: 1;
+	line-height: 1.8;
 }
 
 .text-link {
@@ -482,11 +639,44 @@ h4 {
 	text-underline-offset: 0.18em;
 }
 
+.about-single {
+	max-width: 860px;
+	margin: 0 auto;
+}
+
+.about-body {
+	margin-top: 1.3rem;
+}
+
+.about-body p {
+	margin-top: 1rem;
+	color: var(--text-soft);
+	font-size: 1.04rem;
+	line-height: 1.95;
+}
+
 .article-actions {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.8rem;
 	margin-top: 2rem;
+}
+
+.footer-inner {
+	display: grid;
+	grid-template-columns: minmax(0, 1.2fr) auto;
+	align-items: start;
+	gap: 1.4rem;
+	padding: 2rem 0;
+}
+
+.footer-copy {
+	max-width: 34rem;
+}
+
+.footer-title {
+	font-size: 1.45rem;
+	margin-top: 0.45rem;
 }
 
 code {
@@ -502,7 +692,10 @@ code {
 	.quick-grid,
 	.split-grid,
 	.timeline-list,
-	.album-grid {
+	.album-grid,
+	.anniversary-grid,
+	.page-banner,
+	.recent-grid {
 		grid-template-columns: 1fr;
 	}
 
@@ -512,16 +705,28 @@ code {
 		align-items: flex-start;
 	}
 
+	.footer-inner {
+		grid-template-columns: 1fr;
+	}
+
 	.site-nav {
 		overflow-x: auto;
 		width: 100%;
 		padding-bottom: 0.2rem;
 	}
+
+	.hero-copy {
+		min-height: auto;
+	}
+
+	.footer-nav {
+		justify-content: flex-start;
+	}
 }
 
 @media (max-width: 640px) {
 	.page-main {
-		padding-top: 1.6rem;
+		padding-top: 1.8rem;
 	}
 
 	.container {
@@ -545,5 +750,10 @@ code {
 	.diary-meta {
 		flex-direction: column;
 		align-items: flex-start;
+	}
+
+	.hero-pills,
+	.button-row {
+		gap: 0.55rem;
 	}
 }

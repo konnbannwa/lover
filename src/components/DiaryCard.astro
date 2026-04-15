@@ -3,25 +3,21 @@ import { formatDisplayDate } from '../utils/date';
 
 interface Props {
 	title: string;
+	author: string;
 	date: Date;
 	summary: string;
 	href: string;
-	tags?: string[];
 }
 
-const { title, date, summary, href, tags = [] } = Astro.props;
+const { title, author, date, summary, href } = Astro.props;
 ---
 
 <article class="surface-card diary-card">
 	<div class="diary-meta">
 		<span>{formatDisplayDate(date)}</span>
-		{
-			tags.length > 0 && (
-				<div class="tag-row">
-					{tags.map((tag) => <span class="chip">{tag}</span>)}
-				</div>
-			)
-		}
+		<div class="tag-row">
+			<span class="chip author-chip">作者 · {author}</span>
+		</div>
 	</div>
 	<h3 class="diary-title">{title}</h3>
 	<p class="diary-summary">{summary}</p>

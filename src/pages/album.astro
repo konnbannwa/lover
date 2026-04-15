@@ -8,15 +8,22 @@ const withBase = (path: string) => `${baseUrl}${path.replace(/^\/+/, '')}`;
 ---
 
 <BaseLayout title={`相册 | ${siteConfig.title}`} description="用相册保存两个人的照片和场景。">
-	<section class="section">
-		<header class="section-header">
+	<section class="section page-banner">
+		<div>
 			<p class="eyebrow">Album</p>
 			<h1 class="section-title">相册</h1>
 			<p class="section-text">
 				这里先用静态占位图搭起结构，后续只需要替换图片文件和说明文字，就能逐渐变成你们自己的相册。
 			</p>
-		</header>
+		</div>
+		<div class="surface-card banner-card">
+			<p class="eyebrow">Photos</p>
+			<h2 class="panel-title">{albumItems.length} 个相册位置</h2>
+			<p class="panel-text">先把结构留好，之后你们可以慢慢把真实照片放进来。</p>
+		</div>
+	</section>
 
+	<section class="section">
 		<div class="album-grid">
 			{
 				albumItems.map((item) => (

@@ -2,38 +2,76 @@
 import { getCollection } from 'astro:content';
 import DayCounter from '../components/DayCounter.astro';
 import DiaryCard from '../components/DiaryCard.astro';
-import { homeLinks, siteConfig } from '../config/site';
+import { anniversaries, homeLinks, siteConfig } from '../config/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatDisplayDate } from '../utils/date';
 
 const baseUrl = import.meta.env.BASE_URL;
 const diaryEntries = (await getCollection('diary'))
 	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 	.slice(0, 3);
+const featuredAnniversary = anniversaries[1] ?? anniversaries[0];
 ---
 
 <BaseLayout title={siteConfig.title} description={siteConfig.description}>
 	<section class="section hero">
 		<div class="hero-copy">
+			<div class="hero-pills">
+				<span class="soft-pill">恋爱日记</span>
+				<span class="soft-pill">日常与纪念</span>
+			</div>
 			<p class="eyebrow">Love Journal</p>
 			<h1 class="hero-title">{siteConfig.title}</h1>
 			<p class="hero-subtitle">{siteConfig.subtitle}</p>
 			<p class="section-text">{siteConfig.welcomeText}</p>
+			<blockquote class="hero-quote">{siteConfig.heroQuote}</blockquote>
 			<div class="button-row">
 				<a class="button" href={`${baseUrl}timeline/`}>去看时间线</a>
 				<a class="button secondary" href={`${baseUrl}album/`}>翻看相册</a>
+				<a class="button secondary" href={`${baseUrl}about/`}>读一读关于</a>
 			</div>
 		</div>
-		<div class="hero-panel">
-			<DayCounter startDate={siteConfig.startDate} />
+		<div class="hero-aside">
+			<div class="hero-panel">
+				<DayCounter startDate={siteConfig.startDate} />
+			</div>
+			<article class="surface-card panel-card">
+				<p class="eyebrow">纪念日卡片</p>
+				<h2 class="panel-title">{featuredAnniversary.title}</h2>
+				<p class="panel-date">{formatDisplayDate(featuredAnniversary.date)}</p>
+				<p class="panel-text">{featuredAnniversary.description}</p>
+			</article>
+		</div>
+	</section>
+
+	<section class="section">
+		<header class="section-header">
+			<p class="eyebrow">Anniversaries</p>
+			<h2 class="section-title">值得反复回望的几个日子</h2>
+			<p class="section-text">先把重要的日期留在这里，以后也可以继续把新的纪念时刻补进来。</p>
+		</header>
+		<div class="anniversary-grid">
+			{
+				anniversaries.map((item) => (
+					<article class="surface-card anniversary-card">
+						<div class="anniversary-head">
+							<p class="eyebrow">纪念日</p>
+							<span class="anniversary-date">{formatDisplayDate(item.date)}</span>
+						</div>
+						<h3 class="card-title">{item.title}</h3>
+						<p class="card-text">{item.description}</p>
+					</article>
+				))
+			}
 		</div>
 	</section>
 
 	<section class="section">
 		<header class="section-header">
 			<p class="eyebrow">{siteConfig.welcomeTitle}</p>
-			<h2 class="section-title">把喜欢与日常，都慢慢写下来</h2>
+			<h2 class="section-title">从这里开始慢慢翻看</h2>
 			<p class="section-text">
-				这个首页先保留了最核心的入口：看日记、翻相册、读站点说明。结构尽量克制，后续可以继续加纪念日、城市清单或旅行记录。
+				首页保留最常用的几个入口，方便回头看，也方便以后继续把新的内容安静地接进来。
 			</p>
 		</header>
 		<div class="quick-grid">
@@ -53,18 +91,18 @@ const diaryEntries = (await getCollection('diary'))
 
 	<section class="section">
 		<header class="section-header">
-			<p class="eyebrow">Recent Entries</p>
-			<h2 class="section-title">最近写下的几页</h2>
-			<p class="section-text">首页会自动抓取最新三篇示例日记，方便之后一直延续下去。</p>
+			<p class="eyebrow">Recent Notes</p>
+			<h2 class="section-title">最近记录</h2>
+			<p class="section-text">首页会自动抓取最近几篇日记，让这个网站始终带着一点正在继续书写的感觉。</p>
 		</header>
-		<div class="timeline-list">
+		<div class="timeline-list recent-grid">
 			{
 				diaryEntries.map((entry) => (
 					<DiaryCard
 						title={entry.data.title}
+						author={entry.data.author}
 						date={entry.data.date}
 						summary={entry.data.summary}
-						tags={entry.data.tags}
 						href={`${baseUrl}timeline/${entry.id}/`}
 					/>
 				))

@@ -65,8 +65,10 @@ const currentPath = normalizePath(Astro.url.pathname);
 			</main>
 			<footer class="site-footer">
 				<div class="container footer-inner">
-					<p>{siteConfig.footerNote}</p>
-					<p>Astro + GitHub Pages / Base Path: /love/</p>
+					<div class="footer-copy">
+						<p class="eyebrow">With Love</p>
+						<h2 class="footer-title">{siteConfig.title}</h2>
+					</div>
 				</div>
 			</footer>
 		</div>
