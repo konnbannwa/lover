@@ -10,7 +10,6 @@ interface Props {
 const { title = siteConfig.title, description = siteConfig.description } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
 const faviconPath = `${baseUrl}favicon.svg`;
-const faviconIcoPath = `${baseUrl}favicon.ico`;
 
 const linkUrl = (path: string) => `${baseUrl}${path}`;
 const normalizePath = (value: string) => (value.endsWith('/') ? value : `${value}/`);
@@ -25,7 +24,6 @@ const currentPath = normalizePath(Astro.url.pathname);
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		<link rel="icon" type="image/svg+xml" href={faviconPath} />
-		<link rel="icon" href={faviconIcoPath} />
 		<title>{title}</title>
 	</head>
 	<body>
@@ -33,7 +31,6 @@ const currentPath = normalizePath(Astro.url.pathname);
 			<header class="site-header">
 				<div class="container header-inner">
 					<a class="site-brand" href={baseUrl}>
-						<span class="brand-mark">love</span>
 						<span class="brand-text">
 							<strong>{siteConfig.title}</strong>
 							<small>{siteConfig.subtitle}</small>

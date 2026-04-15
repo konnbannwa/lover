@@ -5,6 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const baseUrl = import.meta.env.BASE_URL;
 const withBase = (path: string) => `${baseUrl}${path.replace(/^\/+/, '')}`;
+const totalPhotos = albumItems.reduce((sum, item) => sum + item.photos.length, 0);
 ---
 
 <BaseLayout title={`相册 | ${siteConfig.title}`} description="用相册保存两个人的照片和场景。">
@@ -18,8 +19,8 @@ const withBase = (path: string) => `${baseUrl}${path.replace(/^\/+/, '')}`;
 		</div>
 		<div class="surface-card banner-card">
 			<p class="eyebrow">Photos</p>
-			<h2 class="panel-title">{albumItems.length} 个相册位置</h2>
-			<p class="panel-text">先把结构留好，之后你们可以慢慢把真实照片放进来。</p>
+			<h2 class="panel-title">{albumItems.length} 组相册</h2>
+			<p class="panel-text">当前示例里一共放了 {totalPhotos} 张占位图，后面可以按一次旅行或某一天继续往组里追加。</p>
 		</div>
 	</section>
 
@@ -28,9 +29,21 @@ const withBase = (path: string) => `${baseUrl}${path.replace(/^\/+/, '')}`;
 			{
 				albumItems.map((item) => (
 					<article class="album-card">
-						<img class="album-image" src={withBase(item.image)} alt={item.alt} loading="lazy" />
+						<div class:list={['album-preview-grid', `count-${Math.min(item.photos.length, 4)}`]}>
+							{item.photos.slice(0, 4).map((photo) => (
+								<img
+									class="album-image"
+									src={withBase(photo.image)}
+									alt={photo.alt}
+									loading="lazy"
+								/>
+							))}
+						</div>
 						<div class="album-content">
-							<p class="eyebrow">{item.date}</p>
+							<div class="album-topline">
+								<p class="eyebrow">{item.date}</p>
+								<span class="photo-count">{item.photos.length} 张照片</span>
+							</div>
 							<h3>{item.title}</h3>
 							<p class="section-text">{item.description}</p>
 							<p class="caption-line">{item.note}</p>
