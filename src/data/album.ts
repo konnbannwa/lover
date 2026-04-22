@@ -100,10 +100,14 @@ export const albumItems = [
 		slug: 'campus',
 		title: '校园',
 		date: '2026-04-12',
-		description: '后面还有很多啦，先放一张镇楼！',
+		description: '后面还有很多啦，先放几张镇楼！',
 		note: '甜甜的校园回忆！',
 		photos: [
 			{ image: '/images/album/校园/Weixin Image_20260413000738_8967_11.jpg', alt: '校园照片 1' },
+			{ image: '/images/album/校园/c17debdb6386b438c07a96c58fbc52d9.jpg', alt: '校园照片 2' },
+			{ image: '/images/album/校园/e746e378de7496c1c069d8bd4a3ff2d1.jpg', alt: '校园照片 3' },
+			{ image: '/images/album/校园/45d8eda98ad72fb9c93b78a93a2870f5.jpg', alt: '校园照片 4' },
+			{ image: '/images/album/校园/77311370e20db728ce70cb74ab97194a.jpg', alt: '校园照片 5' },
 		],
 	},
 ] as const;
