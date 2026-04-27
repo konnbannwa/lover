@@ -3,11 +3,142 @@ import { getCollection } from 'astro:content';
 import DiaryCard from '../../components/DiaryCard.astro';
 import { siteConfig } from '../../config/site';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatDisplayDate } from '../../utils/date';
 
 const baseUrl = import.meta.env.BASE_URL;
 const diaryEntries = (await getCollection('diary')).sort(
 	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
+const timelineMoments = [
+	{
+		date: '2026-01-16',
+		title: '灵隐寺',
+		description: '期末周结束后的放松',
+	},
+	{
+		date: '2026-01-19',
+		title: '猫咖',
+		description: '一起撸猫的夜晚',
+	},
+	{
+		date: '2026-01-24',
+		title: '西湖环山',
+		description: '走了好多好多路',
+	},
+	{
+		date: '2026-01-25',
+		title: '牛new',
+		description: '吃饭还要办公哼哼',
+	},
+	{
+		date: '2026-02-05',
+		title: '沈阳',
+		description: '我们在沈阳见面啦，这个社会实践的初衷就不是社会实践嘛',
+	},
+	{
+		date: '2026-03-30',
+		title: '肠微分方程',
+		description: '见到你有很多话想说，但又不知道说什么',
+	},
+	{
+		date: '2026-04-04',
+		title: '苏州',
+		description: '表白啦，不过不是正式的',
+	},
+	{
+		date: '2026-04-10',
+		title: '散步西湖',
+		description: '第一次牵起宝宝的手，好笨拙',
+	},
+	{
+		date: '2026-04-11',
+		title: '表白',
+		description: '花花和你都有噜',
+	},
+	{
+		date: '2026-04-12',
+		title: '打卡，东教贴贴',
+		description: '被逮捕噜，宝宝好害羞好害羞',
+	},
+	{
+		date: '2026-04-13',
+		title: '约饭鸡公煲',
+		description: '欸呀上的太慢了宝宝的座位木了ww',
+	},
+	{
+		date: '2026-04-14',
+		title: '今日无事，填填idea',
+		description: '很多不行的也行了嘛嘿嘿',
+	},
+	{
+		date: '2026-04-15',
+		title: '约饭东北馆子',
+		description: '锅包肉好酸，宝宝好甜',
+	},
+	{
+		date: '2026-04-16',
+		title: '麦之',
+		description: '偷听宝宝打电话嘿嘿',
+	},
+	{
+		date: '2026-04-17',
+		title: '溜达去蜜雪',
+		description: '就这样偷情',
+	},
+	{
+		date: '2026-04-18',
+		title: '悦览树自习',
+		description: '偷情plus版',
+	},
+	{
+		date: '2026-04-19',
+		title: '打卡and堕落街',
+		description: '小龟烤冷面唔嘿嘿',
+	},
+	{
+		date: '2026-04-20',
+		title: '约饭黄焖鸡and主图六楼date',
+		description: '厕所二号位！',
+	},
+	{
+		date: '2026-04-21',
+		title: '麦 and date in 主图二楼',
+		description: '急头白脸背单词ww',
+	},
+	{
+		date: '2026-04-22',
+		title: '约饭滨寿司and例会',
+		description: '发现纯爱不了几天了是吧哈哈哈哈',
+	},
+	{
+		date: '2026-04-23',
+		title: '今日无事',
+		description: '达成约定嘿嘿，嘿嘿',
+	},
+	{
+		date: '2026-04-25',
+		title: '逛街in77万象城',
+		description: '拍了大头贴，欸呦宝宝嘴唇好软唔',
+	},
+	{
+		date: '2026-04-26',
+		title: '约饭熊野',
+		description: '竟敢嫌弃我哼哼哼哼',
+	},
+	{
+		date: '2026-04-27',
+		title: '打卡',
+		description: '唔宝宝接我好感动，还有奶茶',
+	},
+	{
+		date: 'long long',
+		title: '未完待续',
+		description: '还有很多故事等待我们落笔！',
+	}
+] as const;
+const latestMomentIndex = timelineMoments.length - 1;
+const isValidDateString = (date: string) => !Number.isNaN(new Date(date).getTime());
+const getMomentDateLabel = (date: string) => (isValidDateString(date) ? formatDisplayDate(date) : date);
 ---
 
 <BaseLayout title={`时间线 | ${siteConfig.title}`} description="按时间查看恋爱日记与纪念片段。">
@@ -28,8 +159,37 @@ const diaryEntries = (await getCollection('diary')).sort(
 
 	<section class="section">
 		<header class="section-header">
+			<p class="eyebrow">Moments</p>
+			<h2 class="section-title">date速递</h2>
+		</header>
+		<div class="memory-timeline surface-card" aria-label="回忆时间线">
+			<div class="memory-timeline-scroll">
+				<ol class="memory-timeline-track">
+					{
+						timelineMoments.map((moment, index) => (
+							<li class:list={['memory-point', { 'is-latest': index === latestMomentIndex }]}>
+								{
+									isValidDateString(moment.date) ? (
+										<time datetime={moment.date}>{getMomentDateLabel(moment.date)}</time>
+									) : (
+										<span class="memory-date">{getMomentDateLabel(moment.date)}</span>
+									)
+								}
+								<span class="memory-dot" aria-hidden="true"></span>
+								<strong>{moment.title}</strong>
+								<p>{moment.description}</p>
+							</li>
+						))
+					}
+				</ol>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<header class="section-header">
 			<p class="eyebrow">Entries</p>
-			<h2 class="section-title">按时间慢慢翻看</h2>
+			<h2 class="section-title">这里是日记簿！</h2>
 		</header>
 		<div class="timeline-list">
 			{

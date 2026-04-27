@@ -496,6 +496,99 @@ h4 {
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.memory-timeline {
+	padding: 1.1rem 0;
+	overflow: hidden;
+	background:
+		linear-gradient(180deg, rgba(255, 253, 251, 0.96), rgba(247, 239, 233, 0.88)),
+		var(--surface);
+}
+
+.memory-timeline-scroll {
+	overflow-x: auto;
+	overscroll-behavior-inline: contain;
+	scroll-snap-type: x proximity;
+	padding: 0.4rem clamp(2rem, 5vw, 3.5rem) 0.8rem;
+	scrollbar-color: rgba(165, 119, 111, 0.35) transparent;
+	scrollbar-width: thin;
+}
+
+.memory-timeline-track {
+	position: relative;
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: minmax(11.5rem, 14rem);
+	gap: 1.15rem;
+	min-width: max-content;
+	padding: 1.15rem 0 0.5rem;
+	list-style: none;
+}
+
+.memory-timeline-track::before {
+	content: '';
+	position: absolute;
+	top: 4.35rem;
+	left: 0;
+	right: 0;
+	height: 2px;
+	border-radius: 999px;
+	background: linear-gradient(90deg, rgba(210, 160, 159, 0.24), rgba(165, 119, 111, 0.52), rgba(210, 160, 159, 0.24));
+}
+
+.memory-point {
+	position: relative;
+	display: grid;
+	grid-template-rows: 2.15rem 2rem auto auto;
+	align-content: start;
+	justify-items: center;
+	gap: 0.42rem;
+	min-height: 9.5rem;
+	padding: 0 0.4rem;
+	scroll-snap-align: start;
+	text-align: center;
+}
+
+.memory-point time,
+.memory-date {
+	color: var(--accent-deep);
+	font-size: 0.86rem;
+	white-space: nowrap;
+}
+
+.memory-dot {
+	position: relative;
+	z-index: 1;
+	align-self: center;
+	width: 0.88rem;
+	height: 0.88rem;
+	border: 3px solid rgba(255, 253, 251, 0.96);
+	border-radius: 999px;
+	background: var(--accent);
+	box-shadow: 0 0 0 1px rgba(165, 119, 111, 0.22), 0 8px 18px rgba(165, 110, 100, 0.13);
+}
+
+.memory-point strong {
+	font-family: 'Iowan Old Style', 'Baskerville', 'Noto Serif SC', 'Songti SC', serif;
+	font-size: 1.1rem;
+	line-height: 1.35;
+	color: var(--text);
+}
+
+.memory-point p {
+	color: var(--text-soft);
+	font-size: 0.92rem;
+	line-height: 1.65;
+}
+
+.memory-point.is-latest .memory-dot {
+	background: var(--accent-deep);
+	box-shadow: 0 0 0 4px rgba(210, 160, 159, 0.2), 0 10px 24px rgba(165, 110, 100, 0.18);
+}
+
+.memory-point.is-latest strong {
+	color: var(--accent-deep);
+}
+
 .recent-grid {
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 }
