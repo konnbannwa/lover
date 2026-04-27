@@ -163,7 +163,7 @@ const getMomentDateLabel = (date: string) => (isValidDateString(date) ? formatDi
 			<h2 class="section-title">date速递</h2>
 		</header>
 		<div class="memory-timeline surface-card" aria-label="回忆时间线">
-			<div class="memory-timeline-scroll">
+			<div class="memory-timeline-scroll" data-memory-timeline-scroll tabindex="0">
 				<ol class="memory-timeline-track">
 					{
 						timelineMoments.map((moment, index) => (
@@ -205,4 +205,92 @@ const getMomentDateLabel = (date: string) => (isValidDateString(date) ? formatDi
 			}
 		</div>
 	</section>
+
+	<script is:inline>
+		const startMemoryTimelineAutoScroll = () => {
+			const timelineScroller = document.querySelector('[data-memory-timeline-scroll]');
+
+			if (!timelineScroller || timelineScroller.dataset.autoScrollReady === 'true') {
+				return;
+			}
+
+			timelineScroller.dataset.autoScrollReady = 'true';
+
+			let intervalId = 0;
+			let pausedUntil = 0;
+			let isStoppedAtEnd = false;
+			let isAutoScrolling = false;
+			const speed = 1.5;
+
+			const pauseAutoScroll = (delay = 1600) => {
+				pausedUntil = Date.now() + delay;
+			};
+
+			const ensureInterval = () => {
+				if (!intervalId) {
+					intervalId = window.setInterval(tick, 16);
+				}
+			};
+
+			const tick = () => {
+				const maxScroll = timelineScroller.scrollWidth - timelineScroller.clientWidth;
+
+				if (maxScroll > 1 && !isStoppedAtEnd && Date.now() > pausedUntil) {
+					isAutoScrolling = true;
+					timelineScroller.scrollLeft = Math.min(timelineScroller.scrollLeft + speed, maxScroll);
+					window.requestAnimationFrame(() => {
+						isAutoScrolling = false;
+					});
+
+					if (timelineScroller.scrollLeft >= maxScroll - 1) {
+						timelineScroller.scrollLeft = maxScroll;
+						isStoppedAtEnd = true;
+						window.clearInterval(intervalId);
+						intervalId = 0;
+					}
+				}
+			};
+
+			const startInterval = () => {
+				const maxScroll = timelineScroller.scrollWidth - timelineScroller.clientWidth;
+
+				if (maxScroll <= 1) {
+					window.requestAnimationFrame(startInterval);
+					return;
+				}
+
+				timelineScroller.scrollLeft = Math.max(timelineScroller.scrollLeft, 1);
+				ensureInterval();
+			};
+
+			const restartAfterManualScroll = () => {
+				if (isAutoScrolling) {
+					return;
+				}
+
+				const maxScroll = timelineScroller.scrollWidth - timelineScroller.clientWidth;
+
+				if (maxScroll > 1 && timelineScroller.scrollLeft < maxScroll - 2) {
+					isStoppedAtEnd = false;
+					pauseAutoScroll();
+					ensureInterval();
+				}
+			};
+
+			timelineScroller.addEventListener('pointerdown', () => pauseAutoScroll(), { passive: true });
+			timelineScroller.addEventListener('touchstart', () => pauseAutoScroll(), { passive: true });
+			timelineScroller.addEventListener('wheel', () => pauseAutoScroll(), { passive: true });
+			timelineScroller.addEventListener('keydown', () => pauseAutoScroll());
+			timelineScroller.addEventListener('scroll', restartAfterManualScroll, { passive: true });
+			window.requestAnimationFrame(() => window.requestAnimationFrame(startInterval));
+		};
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', startMemoryTimelineAutoScroll, { once: true });
+		} else {
+			startMemoryTimelineAutoScroll();
+		}
+
+		window.addEventListener('load', startMemoryTimelineAutoScroll, { once: true });
+	</script>
 </BaseLayout>

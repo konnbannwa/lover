@@ -507,7 +507,7 @@ h4 {
 .memory-timeline-scroll {
 	overflow-x: auto;
 	overscroll-behavior-inline: contain;
-	scroll-snap-type: x proximity;
+	scroll-behavior: auto;
 	padding: 0.4rem clamp(2rem, 5vw, 3.5rem) 0.8rem;
 	scrollbar-color: rgba(165, 119, 111, 0.35) transparent;
 	scrollbar-width: thin;
@@ -544,7 +544,6 @@ h4 {
 	gap: 0.42rem;
 	min-height: 9.5rem;
 	padding: 0 0.4rem;
-	scroll-snap-align: start;
 	text-align: center;
 }
 
