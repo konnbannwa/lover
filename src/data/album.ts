@@ -115,7 +115,7 @@ export const albumItems = [
 		title: '大头贴',
 		date: '2026-04-25',
 		description: '终于拍上大头贴啦！',
-		note: '可可爱爱的两个人！',
+		note: '嘿嘿唔嘿嘿',
 		photos: [
 			{ image: '/images/album/大头贴/Weixin Image_20260425230509_15542_11.jpg', alt: '大头贴照片 1' },
 			{ image: '/images/album/大头贴/Weixin Image_20260425230510_15543_11.jpg', alt: '大头贴照片 2' },
