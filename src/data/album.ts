@@ -110,4 +110,22 @@ export const albumItems = [
 			{ image: '/images/album/校园/77311370e20db728ce70cb74ab97194a.jpg', alt: '校园照片 5' },
 		],
 	},
+	{
+		slug: 'photo-booth',
+		title: '大头贴',
+		date: '2026-04-25',
+		description: '终于拍上大头贴啦！',
+		note: '可可爱爱的两个人！',
+		photos: [
+			{ image: '/images/album/大头贴/Weixin Image_20260425230509_15542_11.jpg', alt: '大头贴照片 1' },
+			{ image: '/images/album/大头贴/Weixin Image_20260425230510_15543_11.jpg', alt: '大头贴照片 2' },
+			{ image: '/images/album/大头贴/Weixin Image_20260425230512_15544_11.jpg', alt: '大头贴照片 3' },
+			{ image: '/images/album/大头贴/Weixin Image_20260425230513_15545_11.jpg', alt: '大头贴照片 4' },
+			{ image: '/images/album/大头贴/Weixin Image_20260425230514_15547_11.jpg', alt: '大头贴照片 5' },
+			{ image: '/images/album/大头贴/Weixin Image_20260425230515_15548_11.jpg', alt: '大头贴照片 6' },
+			{ image: '/images/album/大头贴/Weixin Image_20260425230516_15549_11.jpg', alt: '大头贴照片 7' },
+			{ image: '/images/album/大头贴/Weixin Image_20260425230517_15550_11.jpg', alt: '大头贴照片 8' },
+			{ image: '/images/album/大头贴/Weixin Image_20260425230518_15551_11.jpg', alt: '大头贴照片 9' },
+		],
+	},
 ] as const;
