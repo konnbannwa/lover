@@ -114,6 +114,9 @@ export const albumItems = [
 			{ image: '/images/album/校园/Weixin Image_20260428230455_17139_11.jpg', alt: '校园照片 9' },
 			{ image: '/images/album/校园/Weixin Image_20260428230457_17140_11.jpg', alt: '校园照片 10' },
 			{ image: '/images/album/校园/Weixin Image_20260429001057_17186_11.jpg', alt: '校园照片 11' },
+			{ image: '/images/album/校园/Weixin Image_20260429215145_13798_4.jpg', alt: '校园照片 12' },
+			{ image: '/images/album/校园/Weixin Image_20260429215453_13799_4.jpg', alt: '校园照片 13' },
+			{ image: '/images/album/校园/Weixin Image_20260430164952_17709_11.jpg', alt: '校园照片 14' },
 		],
 	},
 	{
